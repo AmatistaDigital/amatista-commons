@@ -7,7 +7,7 @@ const path = require('path');
 let plugins = [], outputFile;
 
 plugins.push(new UglifyJsPlugin({ minimize: true }));
-outputFile = 'library.min.js';
+outputFile = 'library.js';
 
 const config = {
   entry: __dirname + '/src/index.js',
