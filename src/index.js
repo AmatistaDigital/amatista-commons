@@ -3,6 +3,8 @@ import AWS from 'aws-sdk';
 import bcrypt from 'bcrypt-nodejs';
 import jwt from 'jsonwebtoken';
 
+export const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
 export const joiValidate = (object, schema) => new Promise((resolve, reject) => {
   joi.validate(object, schema, (err, value) => {
     if (err) {
@@ -10,6 +12,28 @@ export const joiValidate = (object, schema) => new Promise((resolve, reject) => 
       return;
     }
     resolve(value);
+  });
+});
+
+export const dynamoUpdate = (parameters) => new Promise((resolve, reject) => {
+  const dynamo = new AWS.DynamoDB.DocumentClient();
+  dynamo.update(parameters, (error, result) => {
+    if (error) {
+      reject(error);
+      return;
+    }
+    resolve(result);
+  });
+});
+
+export const dynamoScan = (parameters) => new Promise((resolve, reject) => {
+  const dynamo = new AWS.DynamoDB.DocumentClient();
+  dynamo.scan(parameters, (error, result) => {
+    if (error) {
+      reject(error);
+      return;
+    }
+    resolve(result);
   });
 });
 
