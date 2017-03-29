@@ -1,5 +1,7 @@
 import joi from 'joi';
 import AWS from 'aws-sdk';
+import bcrypt from 'bcrypt-nodejs';
+import jwt from 'jsonwebtoken';
 
 export const joiValidate = (object, schema) => new Promise((resolve, reject) => {
   joi.validate(object, schema, (err, value) => {
@@ -30,5 +32,26 @@ export const dynamoPut = (parameters) => new Promise((resolve, reject) => {
       return;
     }
     resolve(result);
+  });
+});
+
+
+export const jwtVerify = (key, secret, opts) => new Promise((resolve, reject) => {
+  jwt.verify(key, secret, opts, (errVerify, decoded) => {
+    if (errVerify) {
+      reject(errVerify);
+      return;
+    }
+    resolve(decoded);
+  });
+});
+
+export const bcryptCompare = (firstHash, secondHash) => new Promise((resolve, reject) => {
+  bcrypt.compare(firstHash, secondHash, (err, match) => {
+    if (err) {
+      reject(err);
+      return;
+    }
+    resolve(match);
   });
 });
