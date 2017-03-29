@@ -8,8 +8,9 @@
     "dev": "webpack --progress --colors --watch --env dev"
   },
   "dependencies": {
-    "joi": "10.3.1",
-    "babel-runtime": "6.23.0"
+    "aws-sdk": "2.34.0",
+    "babel-runtime": "6.23.0",
+    "joi": "10.3.1"
   },
   "devDependencies": {
     "babel": "6.23.0",
