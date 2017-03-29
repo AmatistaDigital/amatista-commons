@@ -55,3 +55,22 @@ export const bcryptCompare = (firstHash, secondHash) => new Promise((resolve, re
     resolve(match);
   });
 });
+
+export const tokenValidate = (fnTokenVerify, lambda, token) => new Promise((resolve, reject) => {
+  const params = {
+    FunctionName : fnTokenVerify,
+    Payload      : JSON.stringify({token}),
+  };
+  lambda.invoke(params, (err, data) => {
+    if (err) {
+      reject(err);
+      return;
+    }
+    const payload = JSON.parse(data.Payload);
+    if (payload.email) {
+      resolve(true);
+    } else {
+      reject(new Error(payload.errorMessage));
+    }
+  });
+});
