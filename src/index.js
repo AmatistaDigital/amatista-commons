@@ -2,6 +2,9 @@ import joi from 'joi';
 import AWS from 'aws-sdk';
 import bcrypt from 'bcrypt-nodejs';
 import jwt from 'jsonwebtoken';
+import validator from 'validator';
+
+export const sanitize = (value) => validator.stripLow(validator.escape(value));
 
 export const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
