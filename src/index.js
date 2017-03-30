@@ -73,6 +73,16 @@ export const jwtVerify = (key, secret, opts) => new Promise((resolve, reject) =>
   });
 });
 
+export const bcrypHash = (toHash, saltRounds) => new Promise((resolve, reject) => {
+  bcrypt.hash(toHash, bcrypt.genSaltSync(saltRounds), null, (err, hash) => {
+    if (err) {
+      reject(err);
+      return;
+    }
+    resolve(hash);
+  });
+});
+
 export const bcryptCompare = (firstHash, secondHash) => new Promise((resolve, reject) => {
   bcrypt.compare(firstHash, secondHash, (err, match) => {
     if (err) {
