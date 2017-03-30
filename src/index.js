@@ -73,7 +73,7 @@ export const jwtVerify = (key, secret, opts) => new Promise((resolve, reject) =>
   });
 });
 
-export const bcrypHash = (toHash, saltRounds) => new Promise((resolve, reject) => {
+export const bcryptHash = (toHash, saltRounds) => new Promise((resolve, reject) => {
   bcrypt.hash(toHash, bcrypt.genSaltSync(saltRounds), null, (err, hash) => {
     if (err) {
       reject(err);
